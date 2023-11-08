@@ -1,0 +1,28 @@
+
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator{
+    width: 300px;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.screen{
+    min-height: 60px;
+    border: 1px solid black;
+    margin: 10px 0px 20px 0px;
+}
+
+.buttons{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.buttons button{
+    padding: 1rem 0;
+}
