@@ -1,8 +1,9 @@
 
-let firstNumber;
-let operator;
-let secondNumber;
+let firstNumber = '';
+let operator = '';
+let secondNumber = '';
 let displayValue = '';
+let currentState = 'first';
 
 // All math functions
 function add(a, b) {
@@ -33,10 +34,17 @@ function operate(operator, a, b) {
     }
 }
 
-// Append numbers functions
+// Append numbers and operator functions
 function appendNumber(number) {
     displayValue += number;
+    if(currentState === 'first'){
+        firstNumber += number;
+    } else {
+        secondNumber += number;
+    }
+    updateDisplay();
 }
+
 const number0 = document.getElementById('digit-0');
 number0.addEventListener('click', () => {
     appendNumber('0');
@@ -81,7 +89,7 @@ number6.addEventListener('click', () => {
 
 const number7 = document.getElementById('digit-7');
 number7.addEventListener('click', () => {
-    appendNumber('07');
+    appendNumber('7');
     updateDisplay();
 })
 
@@ -97,6 +105,32 @@ number9.addEventListener('click', () => {
     updateDisplay();
 })
 
+const plusOperator = document.getElementById('plus');
+plusOperator.addEventListener('click', () =>{
+    handleOperatorClick('+');
+})
+
+const minusOperator = document.getElementById('minus');
+minusOperator.addEventListener('click', () =>{
+    handleOperatorClick('-');
+})
+
+const multiplyOperator = document.getElementById('multiply');
+multiplyOperator.addEventListener('click', () =>{
+    handleOperatorClick('*');
+})
+
+const divideOperator = document.getElementById('divide');
+divideOperator.addEventListener('click', () =>{
+    handleOperatorClick('/');
+})
+
+const remainderOperator = document.getElementById('remainder');
+remainderOperator.addEventListener('click', () =>{
+    handleOperatorClick('%');
+})
+
+// Update and clear screen
 function updateDisplay(){
     const displayElement = document.getElementById('screen');
     displayElement.textContent = displayValue;
@@ -106,6 +140,34 @@ function clearDisplay(){
     displayValue = '';
     updateDisplay();
 }
-
 const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', clearDisplay)
+
+// Storing the clicked operator
+function handleOperatorClick(operatorClicked){
+    operator = operatorClicked;
+    currentState = 'second';
+}
+
+// Calculator logic after clickin equals
+const equals = document.getElementById('equals');
+equals.addEventListener('click', () => {
+
+    console.log('Before Calculation:', firstNumber, operator, secondNumber);
+
+    if (firstNumber !== '' && operator !== '' && secondNumber !== ''){
+        let result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
+        
+        console.log('Result:', result);
+
+        displayValue = result.toString();
+        updateDisplay();
+
+        firstNumber = result.toString();
+        secondNumber = '';
+        operator = '';
+        currentState = 'first';
+    }
+    console.log('After Calculation:', firstNumber, operator, secondNumber);
+
+})
