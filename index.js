@@ -1,5 +1,5 @@
 
-let firstNumber = '';
+let firstNumber = '0';
 let operator = '';
 let secondNumber = '';
 let displayValue = '';
@@ -22,6 +22,10 @@ function divide(a, b) {
     return a / b;
 }
 
+function remainder(a, b){
+    return a % b;
+}
+
 function operate(operator, a, b) {
     if (operator === '+') {
         return add(a, b);
@@ -31,6 +35,8 @@ function operate(operator, a, b) {
         return multiply(a, b);
     } else if (operator === '/') {
         return divide(a, b);
+    } else if (operator === '%'){
+        return remainder(a, b);
     }
 }
 
@@ -38,7 +44,11 @@ function operate(operator, a, b) {
 function appendNumber(number) {
     displayValue += number;
     if(currentState === 'first'){
-        firstNumber += number;
+        if (firstNumber === '0'){
+            firstNumber = number;
+        } else {
+            firstNumber += number;
+        }    
     } else {
         secondNumber += number;
     }
@@ -133,7 +143,11 @@ remainderOperator.addEventListener('click', () =>{
 // Update and clear screen
 function updateDisplay(){
     const displayElement = document.getElementById('screen');
-    displayElement.textContent = displayValue;
+    if (currentState === 'first'){
+        displayElement.textContent = firstNumber;
+    } else {
+        displayElement.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+    } 
 }
 
 function clearDisplay(){
@@ -143,10 +157,15 @@ function clearDisplay(){
 const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', clearDisplay)
 
+function allClear(){
+    displayValue = '';
+}
+
 // Storing the clicked operator
 function handleOperatorClick(operatorClicked){
     operator = operatorClicked;
     currentState = 'second';
+    updateDisplay();
 }
 
 // Calculator logic after clickin equals
@@ -161,13 +180,13 @@ equals.addEventListener('click', () => {
         console.log('Result:', result);
 
         displayValue = result.toString();
-        updateDisplay();
+        
 
         firstNumber = result.toString();
         secondNumber = '';
         operator = '';
         currentState = 'first';
+        updateDisplay();
     }
     console.log('After Calculation:', firstNumber, operator, secondNumber);
-
 })
