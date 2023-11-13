@@ -140,10 +140,14 @@ remainderOperator.addEventListener('click', () =>{
 // Update, delete and clear screen
 function updateDisplay(){
     const displayElement = document.getElementById('lower-screen');
+    const upperDisplayElement = document.getElementById('upper-screen');
+
     if (currentState === 'first'){
         displayElement.textContent = firstNumber;
+        upperDisplayElement.textContent = previousOperation;
     } else {
         displayElement.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+        upperDisplayElement.textContent = previousOperation;
     } 
 }
 
@@ -154,6 +158,7 @@ function clearDisplay(){
     secondNumber = '';
     displayValue = '';
     currentState = 'first';
+    previousOperation = '';
     updateDisplay();
 }
 const clearButton = document.getElementById('clear');
@@ -192,8 +197,7 @@ equals.addEventListener('click', () => {
         console.log('Result:', result);
 
         displayValue = result.toString();
-        
-
+        previousOperation = `${firstNumber} ${operator} ${secondNumber} = ${result}`;
         firstNumber = result.toString();
         secondNumber = '';
         operator = '';
