@@ -12,9 +12,23 @@
 }
 
 .screen{
-    min-height: 60px;
     border: 1px solid black;
     margin: 10px 0px 20px 0px;
+    text-align: right;
+}
+.upper-screen{
+    min-height: 32px;
+    background-color: red;
+    color: white;
+}
+
+.lower-screen{
+    min-height: 45px;
+    font-size: 24px;
+    background-color: lightblue;
+    vertical-align: middle;
+    line-height: 45px;
+    padding-right: 10px;
 }
 
 .buttons{

@@ -1,9 +1,10 @@
 
-let firstNumber = '0';
+let firstNumber = '';
 let operator = '';
 let secondNumber = '';
 let displayValue = '';
 let currentState = 'first';
+let previousOperation = '';
 
 // All math functions
 function add(a, b) {
@@ -44,11 +45,7 @@ function operate(operator, a, b) {
 function appendNumber(number) {
     displayValue += number;
     if(currentState === 'first'){
-        if (firstNumber === '0'){
-            firstNumber = number;
-        } else {
-            firstNumber += number;
-        }    
+        firstNumber += number;
     } else {
         secondNumber += number;
     }
@@ -140,9 +137,9 @@ remainderOperator.addEventListener('click', () =>{
     handleOperatorClick('%');
 })
 
-// Update and clear screen
+// Update, delete and clear screen
 function updateDisplay(){
-    const displayElement = document.getElementById('screen');
+    const displayElement = document.getElementById('lower-screen');
     if (currentState === 'first'){
         displayElement.textContent = firstNumber;
     } else {
@@ -151,15 +148,30 @@ function updateDisplay(){
 }
 
 function clearDisplay(){
+    console.log('Clear button clicked');
+    firstNumber = '';
+    operator = '';
+    secondNumber = '';
     displayValue = '';
+    currentState = 'first';
     updateDisplay();
 }
 const clearButton = document.getElementById('clear');
-clearButton.addEventListener('click', clearDisplay)
+clearButton.addEventListener('click', clearDisplay);
 
-function allClear(){
-    displayValue = '';
+function deleteLastNum(){
+    if(currentState === 'first'){
+        firstNumber = firstNumber.slice(0, -1);
+        if(firstNumber === ''){
+            firstNumber = '0';
+        }
+    } else {
+        secondNumber = secondNumber.slice(0, -1);
+    }
+    updateDisplay();
 }
+const deleteButton = document.getElementById('delete');
+deleteButton.addEventListener('click', deleteLastNum);
 
 // Storing the clicked operator
 function handleOperatorClick(operatorClicked){
