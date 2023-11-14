@@ -1,45 +1,91 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap');
+
+
+:root{
+    --digits-color: rgb(230, 230, 230);
+    --digits-back: rgb(105, 105, 105);
+    --operators-color: rgb(255, 166, 0);
+    --back-primary: rgb(49, 49, 49);
+    --back-secondary: rgb(77, 77, 77);
+}
+
+*{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
 .main{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 5rem auto;
 }
 
 .calculator{
-    width: 300px;
     border: 1px solid black;
     padding: 15px;
+    background-color: var(--back-primary);
+    border-radius: 15px;
 }
 
 .screen{
-    border: 1px solid black;
+    padding: 10px;
+    border-radius: 8px;
     margin: 10px 0px 20px 0px;
     text-align: right;
+    background-color: var(--back-secondary);
+    box-shadow: inset 0px 0px 5px var(--back-primary);
+    color: var(--digits-color);
 }
+
 .upper-screen{
-    min-height: 32px;
-    background-color: red;
-    color: white;
+    min-height: 40px;
     vertical-align: middle;
-    line-height: 32px;
+    line-height: 40px;
     padding-right: 10px;
 }
 
 .lower-screen{
-    min-height: 45px;
+    min-height: 60px;
     font-size: 24px;
-    background-color: lightblue;
     vertical-align: middle;
-    line-height: 45px;
+    line-height: 60px;
     padding-right: 10px;
 }
 
 .buttons{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, 65px);
+    grid-template-rows: repeat(5, 65px);
+    gap: 15px;
 }
 
 .buttons button{
     padding: 1rem 0;
+    font-size: 18px;
+    background-color: var(--back-primary);
+    border-style: none;
+    border-radius: 4%;
+    border-bottom: 1px solid orange;
+    border-right: 1px solid orange;
+}
+
+.equals{
+    grid-area: 5 / 3 / 6 / 5;
+}
+
+.buttons .equals{
+    background-color: var(--operators-color);
+}
+
+.operator,
+.clear,
+.delete{
+    color: var(--operators-color);
+    font-weight: 600;
+}
+
+.digit{
+    color: var(--digits-color);
 }
