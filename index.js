@@ -27,6 +27,25 @@ function remainder(a, b){
     return a % b;
 }
 
+const decimal = document.getElementById('decimal');
+decimal.addEventListener('click', () =>{
+    appendDecimal();
+    updateDisplay();
+})
+function appendDecimal(){
+    if(currentState === 'first'){
+        if(!firstNumber.includes('.')){
+            firstNumber += '.';
+            displayValue += '.';
+        }
+    } else {
+        if(!secondNumber.includes('.')){
+            secondNumber += '.';
+            displayValue += '.';
+        }
+    }
+}
+
 function operate(operator, a, b) {
     if (operator === '+') {
         return add(a, b);
