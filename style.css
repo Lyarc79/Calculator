@@ -15,6 +15,10 @@
     font-weight: 500;
 }
 
+body{
+    background-color: rgb(255, 189, 66);
+}
+
 .main{
     display: flex;
     align-items: center;
@@ -27,9 +31,15 @@
     padding: 15px;
     background-color: var(--back-primary);
     border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(40, 40, 40, 0.95);
 }
 
 .screen{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
     padding: 10px;
     border-radius: 8px;
     margin: 10px 0px 20px 0px;
@@ -39,19 +49,21 @@
     color: var(--digits-color);
 }
 
-.upper-screen{
+.upper-screen,
+.lower-screen{
     min-height: 40px;
-    vertical-align: middle;
     line-height: 40px;
+    overflow-y: auto;
     padding-right: 10px;
+    vertical-align: middle;
+    max-height: 150px;
 }
 
 .lower-screen{
     min-height: 60px;
     font-size: 24px;
-    vertical-align: middle;
     line-height: 60px;
-    padding-right: 10px;
+    color: orange;
 }
 
 .buttons{
@@ -86,6 +98,27 @@
     font-weight: 600;
 }
 
-.digit{
+.digit,
+.decimal{
     color: var(--digits-color);
 }
+
+#footer{
+    text-align: center;
+    padding: 0px 0px 10px 0px;
+    color: var(--back-primary);
+    margin-top: -20px;
+}
+
+#github-logo{
+    color: var(--back-primary);
+    font-size: 22px;
+    margin-right: 10px;
+    margin-left: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+#github-logo:hover{
+    transform: scale(1.1) rotate(360deg);
+    transition: transform 0.3s ease-in-out;
+}
+
