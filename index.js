@@ -156,18 +156,58 @@ remainderOperator.addEventListener('click', () =>{
     handleOperatorClick('%');
 })
 
+//Keyboard handling
+document.addEventListener('keydown', (event) =>{
+    const keyMappings = {
+        '0': `digit-0`,
+        '1': `digit-1`,
+        '2': `digit-2`,
+        '3': `digit-3`,
+        '4': `digit-4`,
+        '5': `digit-5`,
+        '6': `digit-6`,
+        '7': `digit-7`,
+        '8': `digit-8`,
+        '9': `digit-9`,
+        '.': `decimal`,
+        '+': `plus`,
+        '-': `minus`,
+        '*': `multiply`,
+        '/': `divide`,
+        '%': `remainder`,
+        'Enter': `equals`,
+        'Backspace': 'clear',
+        'Delete': 'delete',
+    }
+
+    const buttonId = keyMappings[event.key];
+
+    if(buttonId){
+        document.getElementById(buttonId).click();
+    }
+})
+
 // Update, delete and clear screen
 function updateDisplay(){
     const displayElement = document.getElementById('lower-screen');
     const upperDisplayElement = document.getElementById('upper-screen');
+    let displayText;
+    const scientNotationThreshold = 1e12;
 
     if (currentState === 'first'){
-        displayElement.textContent = firstNumber;
+        displayText = firstNumber;
         upperDisplayElement.textContent = previousOperation;
     } else {
-        displayElement.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+        displayText = `${firstNumber} ${operator} ${secondNumber}`;
         upperDisplayElement.textContent = previousOperation;
     } 
+
+    if(Math.abs(parseFloat(displayText)) >  scientNotationThreshold){
+        const scientificNotation = parseFloat(displayText).toExponential();
+        displayElement.textContent = scientificNotation;
+    } else {
+        displayElement.textContent = displayText;
+    }
 }
 
 function clearDisplay(){
@@ -216,7 +256,7 @@ equals.addEventListener('click', () => {
         console.log('Result:', result);
 
         displayValue = result.toString();
-        previousOperation = `${firstNumber} ${operator} ${secondNumber} = ${result}`;
+        previousOperation = `${firstNumber} ${operator} ${secondNumber} = `;
         firstNumber = result.toString();
         secondNumber = '';
         operator = '';
